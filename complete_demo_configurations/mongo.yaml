@@ -18,26 +18,18 @@ spec:
       - name: mongodb
         image: mongo
         ports:
-        - containerPort: 27017
+          - containerPort: 27017
         env:
-        - name: MONGO_INITDB_ROOT_USERNAME
-          valueFrom: 
-            secretKeyRef:
-              name: mongodb-secret
-              key: mongo-root-username
-        - name: MONGO_INITDB_ROOT_PASSWORD
-          valueFrom: 
-            secretKeyRef:
-              name: mongodb-secret
-              key: mongo-root-password
-        volumeMounts:
-        - mountPath: /data/db
-          name: mongo-claim
-      volumes:
-      - name: mongo-claim
-        persistentVolumeClaim:
-          claimName: mongo-claim
-
+          - name: MONGO_INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: mongo-root-username
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: mongo-root-password
 ---
 apiVersion: v1
 kind: Service
@@ -50,4 +42,3 @@ spec:
     - protocol: TCP
       port: 27017
       targetPort: 27017
-
