@@ -30,6 +30,13 @@ spec:
             secretKeyRef:
               name: mongodb-secret
               key: mongo-root-password
+        volumeMounts:
+        - mountPath: /data/db
+          name: mongo-claim
+      volumes:
+      - name: mongo-claim
+        persistentVolumeClaim:
+          claimName: mongo-claim
 
 ---
 apiVersion: v1
